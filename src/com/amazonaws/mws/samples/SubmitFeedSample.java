@@ -98,9 +98,9 @@ public class SubmitFeedSample {
          * Access Key ID and Secret Access Key ID, obtained from:
          * http://aws.amazon.com
          ***********************************************************************/
-    	final String accessKeyId = "";
-        final String secretAccessKey = "";
 
+    	final String accessKeyId = "0";
+        final String secretAccessKey = "0";
 
         final String appName = "Myawesomeapp";
         final String appVersion = "1.1.0";
@@ -155,13 +155,13 @@ public class SubmitFeedSample {
          * Marketplace and Merchant IDs are required parameters for all
          * Marketplace Web Service calls.
          ***********************************************************************/
-        final String merchantId = "";
-        final String sellerDevAuthToken = "";
+        final String merchantId = "0";
+        final String sellerDevAuthToken = "0";
         // marketplaces to which this feed will be submitted; look at the
         // API reference document on the MWS website to see which marketplaces are
         // included if you do not specify the list yourself
         final IdList marketplaces = new IdList(Arrays.asList(
-        		 ""));
+        		 "0"));
 
         SubmitFeedRequest request = new SubmitFeedRequest();
         
@@ -172,8 +172,13 @@ public class SubmitFeedSample {
         request.setMarketplaceIdList(marketplaces);
 
         //need to generate XML to submit  _POST_PRODUCT_DATA_ for change title descrpition and etc	
-        //update listing for price and inventory only _POST_FLAT_FILE_LISTINGS_DATA_
-        request.setFeedType("_POST_PRODUCT_DATA_");
+        //update listing for price and inventory only _POST_FLAT_FILE_LISTINGS_DATA_ using xls
+        //change item decsription _POST_PRODUCT_DATA_ using xml
+        //change item price  _POST_PRODUCT_PRICING_DATA_ using xml
+        //update inventory _POST_INVENTORY_AVAILABILITY_DATA_ using xml
+        //Update order fulfillment tracking number _POST_ORDER_FULFILLMENT_DATA_  xml
+        
+        request.setFeedType("_POST_ORDER_FULFILLMENT_DATA_");
 
         // MWS exclusively offers a streaming interface for uploading your
         // feeds. This is because
@@ -235,7 +240,11 @@ public class SubmitFeedSample {
     		MerchantIdentifier.appendChild(doc.createTextNode("A3CQ5833KTZ4RX"));
     		Header.appendChild(MerchantIdentifier);
 
-    		// append messagetype to root
+    		
+  ///////The above header is the same for description, price and quantity xml, need to keep ////////////////////////////
+    		
+    		////this is for update description
+    	/*	// append messagetype to root
     		org.w3c.dom.Element MessageType = doc.createElement("MessageType");
     		MessageType.appendChild(doc.createTextNode("Product"));
     		rootElement.appendChild(MessageType);
@@ -310,7 +319,7 @@ public class SubmitFeedSample {
     		
     		
     		org.w3c.dom.Element Title = doc.createElement("Title");
-    		Title.appendChild(doc.createTextNode("Tests 02-06 Acura RSX Coupe Factory Style Rear Spoiler 03 04 05 S Coupe"));
+    		Title.appendChild(doc.createTextNode("Sample 02-06 Acura RSX Coupe Factory Style Rear Spoiler 03 04 05 S Coupe"));
     		DescriptionData .appendChild(Title);
     		
     		
@@ -319,7 +328,7 @@ public class SubmitFeedSample {
     		
     		
     		org.w3c.dom.Element Brand = doc.createElement("Brand");
-    		Brand.appendChild(doc.createTextNode("Larry"));
+    		Brand.appendChild(doc.createTextNode("LarryAPS"));
     		DescriptionData .appendChild(Brand);
     		
     		
@@ -338,7 +347,7 @@ public class SubmitFeedSample {
     		
     		
     		org.w3c.dom.Element BulletPoint = doc.createElement("BulletPoint");
-    		BulletPoint.appendChild(doc.createTextNode("100% Brand-new in sealed box,custom-designed for your car."));
+    		BulletPoint.appendChild(doc.createTextNode("100% Brand-new in sealed box,custom-designed."));
     		DescriptionData .appendChild(BulletPoint);
     		
     		
@@ -346,7 +355,7 @@ public class SubmitFeedSample {
     		
     		
     		org.w3c.dom.Element BulletPoint1 = doc.createElement("BulletPoint");
-    		BulletPoint1.appendChild(doc.createTextNode("Made of high quality Automotive Grade ABS,awesome."));
+    		BulletPoint1.appendChild(doc.createTextNode("Made of high quality Automotive Grade ABS."));
     		DescriptionData .appendChild(BulletPoint1);
     		
     		
@@ -365,7 +374,7 @@ public class SubmitFeedSample {
 			BulletPoint3.appendChild(doc.createTextNode("Recommanded By Many Professionals "));
 			DescriptionData .appendChild(BulletPoint3);
 			
-		/*	//append DescriptionData element to DescriptionData
+			//append DescriptionData element to DescriptionData
 			
 			//create msrp
 			org.w3c.dom.Element MSRP = doc.createElement("MSRP");
@@ -379,17 +388,339 @@ public class SubmitFeedSample {
     		
     		//append msrp to descrpition data
     		DescriptionData .appendChild(MSRP);
-			*/
+			
 			
     	//append DescriptionData element to DescriptionData
 			
 			
 			org.w3c.dom.Element Manufacturer = doc.createElement("Manufacturer");
 			Manufacturer.appendChild(doc.createTextNode("Alex"));
-			DescriptionData .appendChild(Manufacturer);
+			DescriptionData .appendChild(Manufacturer);*/
+			
+	//Add multiple skus acheived by enclosing first message, and add 
+			//another <Message></message>, with message <id >+1 here can be added to message type " product" to change mutiple listings' description
+			
+	///////////////////////////////////////		////////////////////////////////////////////////////////
+			//if does not work, may need to send another request wihtou rregarding to price, in here tyring to combine two request to one
+			// append another messagetype1 to root
+    		//this is for update price
+		    //	need to create a seperate xml to update price	
+			//with message type price 
+			
+			
+    	/*	org.w3c.dom.Element MessageType1 = doc.createElement("MessageType");
+    		MessageType1.appendChild(doc.createTextNode("Price"));
+    		rootElement.appendChild(MessageType1);
+			
+			//append another message1 to root 
+		
+    		org.w3c.dom.Element Message1 = doc.createElement("Message");
+    		
+    		rootElement.appendChild(Message1);
+    		
+    		
+
+    		// append message1 element to message 1
+    		org.w3c.dom.Element MessageID1 = doc.createElement("MessageID");
+    		//value inside message tag
+    		MessageID1.appendChild(doc.createTextNode("1"));
+    		Message1.appendChild(MessageID1);
+    		
+
+    		
+    		//append price to message 1
+    		
+    		org.w3c.dom.Element Price = doc.createElement("Price");
+    		
+    		Message1.appendChild(Price);
+    		
+    		
+    		// append sku attribute  to price
+    		org.w3c.dom.Element sku1 = doc.createElement("SKU");
+    		sku1.appendChild(doc.createTextNode("SP-10070"));
+    		Price.appendChild(sku1);
+    		
+    		
+    		//append standard price to price
+    		
+    		org.w3c.dom.Element StandardPrice  = doc.createElement("StandardPrice");
+    		StandardPrice.appendChild(doc.createTextNode("204.99"));
+    		
+    		
+    		
+    		//set attrubtes of standardprice 
+    		Attr attr2 = doc.createAttribute("currency");
+    		attr2.setValue("USD");
+    		StandardPrice.setAttributeNode(attr2);
+    		
+    		//append to price
+    		Price.appendChild(StandardPrice);
+    		
+    		
+    		//append sale to price
+    		
+    		org.w3c.dom.Element Sale = doc.createElement("Sale");
+    		
+    		Price.appendChild(Sale);
+    		
+    		
+    		
+    		
+    		// append start date  to sale
+    		org.w3c.dom.Element StartDate = doc.createElement("StartDate");
+    		StartDate.appendChild(doc.createTextNode("2016-08-24T00:00:00Z"));
+    		Sale.appendChild(StartDate);
+    		
+    		
+     		// append end date  to sale
+    		org.w3c.dom.Element EndDate = doc.createElement("EndDate");
+    		EndDate.appendChild(doc.createTextNode("2016-08-30T00:00:00Z"));
+    		Sale.appendChild(EndDate);
+    		
+    		
+    		
+    		//append sale price to sale
+    		
+    		org.w3c.dom.Element SalePrice   = doc.createElement("SalePrice");
+    		SalePrice.appendChild(doc.createTextNode("80.99"));
+    		
+    		
+    		
+    		//set attrubtes of standardprice 
+    		
+    		Attr attr3 = doc.createAttribute("currency");
+    		attr3.setValue("USD");
+    		
+    		SalePrice .setAttributeNode(attr3);
+    		
+    		//append to price
+    		Sale.appendChild(SalePrice );*/
+    		
+    		//another <Message>, with message <id >+1 here can be added to message type "price" to change mutiple listings' price	
+    		
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+    		///this is for update for inventory 
+    		//////////testing for inventory
+    		//need antoher xml, set messagetype to inventory, append to root 
+    		
+    		//
+    		/*org.w3c.dom.Element MessageType2 = doc.createElement("MessageType");
+    		MessageType2.appendChild(doc.createTextNode("Inventory"));
+    		rootElement.appendChild(MessageType2);
+			
+    		//append another message2 to root 
+    		
+    		org.w3c.dom.Element Message2 = doc.createElement("Message");
+    		
+    		rootElement.appendChild(Message2);
+    		
+    		
+    		// append messageid2 element to message 2
+    		org.w3c.dom.Element MessageID2 = doc.createElement("MessageID");
+    		//value inside message tag
+    		MessageID2.appendChild(doc.createTextNode("1"));
+    		Message2.appendChild(MessageID2);
+    		
+    		
+    		
+    		//appned operation type1 to meesage2
+    		
+    		
+    		org.w3c.dom.Element OperationType1 = doc.createElement("OperationType");
+    		//value inside message tag
+    		OperationType1.appendChild(doc.createTextNode("Update"));
+    		Message2.appendChild(OperationType1);
+    		
+    		
+    		
+    		//append inventory element to meesage2
+    		
+    		
+	org.w3c.dom.Element Inventory1 = doc.createElement("Inventory");
+    		
+    		Message2.appendChild(Inventory1 );
+    		
+    		
+    		//append sku2 to inventory
+    		
+    		
+    		org.w3c.dom.Element SKU2 = doc.createElement("SKU");
+    		//value inside message tag
+    		SKU2.appendChild(doc.createTextNode("SP-10070"));
+    		Inventory1.appendChild(SKU2);
+    		
+    		
+    		
+    		
+	//append FulfillmentCenterID1 to inventory
+    		
+    		
+    		org.w3c.dom.Element FulfillmentCenterID1 = doc.createElement("FulfillmentCenterID");
+    		//value inside message tag
+    		FulfillmentCenterID1 .appendChild(doc.createTextNode("DEFAULT"));
+    		Inventory1.appendChild(FulfillmentCenterID1);
+    		
+    		
+    	//qty1 to inventory
+    		
+    		
+    		org.w3c.dom.Element Quantity1 = doc.createElement("Quantity");
+    		//value inside message tag
+    		Quantity1 .appendChild(doc.createTextNode("100"));
+    		Inventory1.appendChild(Quantity1);
+    		
+    		
+    		
+    	//append SwitchFulfillmentTo to inventory 	
+    		
+    		
+    		org.w3c.dom.Element SwitchFulfillmentTo1 = doc.createElement("SwitchFulfillmentTo");
+    		//value inside message tag
+    		SwitchFulfillmentTo1 .appendChild(doc.createTextNode("MFN"));
+    		Inventory1.appendChild(SwitchFulfillmentTo1);*/
+    		
+    		
+    		
+    	//////////mutliple sku inventory can be updated, but this has to be in a seperate message//////	
+    		
+			
+//////////////////////seperate xml to test tracking # upload, needs to retreive order id date method, from db///////////////////////////////////////
+			
+			
+			
+			
+			
+			
+			//append a new message type to root 
+    		org.w3c.dom.Element MessageType3 = doc.createElement("MessageType");
+    		MessageType3.appendChild(doc.createTextNode("OrderFulfillment"));
+    		rootElement.appendChild(MessageType3);
+			
+			
+			
+			
+			
+    		//append another message3 to root 
+    		
+    		org.w3c.dom.Element Message3 = doc.createElement("Message");
+    		
+    		rootElement.appendChild(Message3);
+			
+			
+			
+	
+    		// append messageid3 element to message 3
+    		org.w3c.dom.Element MessageID3 = doc.createElement("MessageID");
+    		//value inside message tag
+    		MessageID3.appendChild(doc.createTextNode("1"));
+    		Message3.appendChild(MessageID3);
+    		
+			
+			//append orderfulfillment3 to message 3
+			
+			
+    		org.w3c.dom.Element OrderFulfillment3 = doc.createElement("OrderFulfillment");
+    		Message3.appendChild(OrderFulfillment3 );
+			
+			
+			
+			//append amazon order id to orderfulfillment3
+			
+			
+    		org.w3c.dom.Element AmazonOrderID = doc.createElement("AmazonOrderID");
+    		//value inside message tag
+    		AmazonOrderID.appendChild(doc.createTextNode("116-9200379-4366634"));
+    		OrderFulfillment3.appendChild(AmazonOrderID);
+    		
+			
+			
+			//append fulfillment date to orderfulfillment 3
+    		
+    		
+    		
+    		org.w3c.dom.Element FulfillmentDate = doc.createElement("FulfillmentDate");
+    		//value inside message tag
+    		FulfillmentDate.appendChild(doc.createTextNode("2016-08-19T16:40:30-06:00"));
+    		OrderFulfillment3.appendChild(FulfillmentDate);
+    		
+			
+			//append fulfillment data to orderfulfillment 3
+    		
+    		org.w3c.dom.Element FulfillmentData= doc.createElement("FulfillmentData");
+    		
+    		OrderFulfillment3.appendChild(FulfillmentData);
+    		
+    		
+    		//Append carrier code to fulfillment data
+    		
+    		
+    		org.w3c.dom.Element CarrierCode = doc.createElement("CarrierCode");
+    		//value inside message tag
+    		CarrierCode.appendChild(doc.createTextNode("UPS"));
+    		FulfillmentData.appendChild(CarrierCode);
 			
 			
     		
+    		//Append ShippingMethod to fulfillment data
+    	
+    		
+
+    		org.w3c.dom.Element ShippingMethod = doc.createElement("ShippingMethod");
+    		//value inside message tag
+    		ShippingMethod.appendChild(doc.createTextNode("UPS Ground"));
+    		FulfillmentData.appendChild(ShippingMethod);
+    		
+			
+    		
+    		
+    		//append ShipperTrackingNumber to fulfillment data
+    		
+    		
+    		
+    		org.w3c.dom.Element ShipperTrackingNumber = doc.createElement("ShipperTrackingNumber");
+    		//value inside message tag
+    		ShipperTrackingNumber.appendChild(doc.createTextNode("1ZY59R760343610835"));
+    		FulfillmentData.appendChild(ShipperTrackingNumber);
+    		
+    		
+    		
+    		
+    		
+    		
+    	/*
+    	 
+    	  //append item to Orderfulfillment3 not really necessary 
+    		
+    		org.w3c.dom.Element Item= doc.createElement("Item");
+    		
+    		OrderFulfillment3.appendChild(Item);
+    		
+    		
+    		
+    		
+    		
+    		//append qty to item
+    		
+    		
+    		org.w3c.dom.Element Quantity = doc.createElement("Quantity");
+    		//value inside message tag
+    		Quantity.appendChild(doc.createTextNode("2"));
+    		Item.appendChild(Quantity);
+    		
+    		*/
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			
     		//many more descrpition data element can be appended, ended now for testing purposes, refer to mws submitfeed api
     		
     		// write the content into xml file
@@ -436,23 +767,7 @@ public class SubmitFeedSample {
         
 
         
-        
-        //this is for changing price and quantinty, just need to follow format update price  in xls and upload it. 
-   /*     //md5 set for direct change of price and quantity through xls file
-       //set md5 to request file
-        String md5 = SubmitFeedSample.computeContentMD5HeaderValue(new FileInputStream("Y:\\Staffs\\Joey\\Developer\\JoeyAdvisor\\testupload.xls"));
-        
-        
-         try {
-			request.setFeedContent( new FileInputStream("Y:\\Staffs\\Joey\\Developer\\JoeyAdvisor\\testupload.xls"));
-			request.setContentMD5(md5);
-	 invokeSubmitFeed(service, request);
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-*/
      
     }
 

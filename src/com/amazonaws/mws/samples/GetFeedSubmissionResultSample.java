@@ -50,9 +50,9 @@ public class GetFeedSubmissionResultSample {
          * Access Key ID and Secret Access Key ID, obtained from:
          * http://aws.amazon.com
          ***********************************************************************/
-    	final String accessKeyId = "";
-        final String secretAccessKey = "";
 
+final String accessKeyId = "0";
+        final String secretAccessKey = "0";
 
         final String appName = "Myawesomeapp";
         final String appVersion = "1.1.0";
@@ -106,14 +106,15 @@ public class GetFeedSubmissionResultSample {
          * Marketplace and Merchant IDs are required parameters for all 
          * Marketplace Web Service calls.
          ***********************************************************************/
-        final String merchantId = "";
-        final String sellerDevAuthToken = "";
+
+        final String merchantId = "0";
+           final String sellerDevAuthToken = "0";
 
         GetFeedSubmissionResultRequest request = new GetFeedSubmissionResultRequest();
         request.setMerchant( merchantId );
         //request.setMWSAuthToken(sellerDevAuthToken);
         
-        request.setFeedSubmissionId( "248015017036" );
+        request.setFeedSubmissionId( "248794017037" );
 
         // Note that depending on the size of the feed sent in, and the number of errors and warnings,
         // the result can reach sizes greater than 1GB. For this reason we recommend that you _always_ 
