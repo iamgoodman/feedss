@@ -51,9 +51,10 @@ public class GetFeedSubmissionResultSample {
          * http://aws.amazon.com
          ***********************************************************************/
 
+
 final String accessKeyId = "0";
         final String secretAccessKey = "0";
-
+        
         final String appName = "Myawesomeapp";
         final String appVersion = "1.1.0";
 
@@ -107,6 +108,7 @@ final String accessKeyId = "0";
          * Marketplace Web Service calls.
          ***********************************************************************/
 
+
         final String merchantId = "0";
            final String sellerDevAuthToken = "0";
 
@@ -114,7 +116,7 @@ final String accessKeyId = "0";
         request.setMerchant( merchantId );
         //request.setMWSAuthToken(sellerDevAuthToken);
         
-        request.setFeedSubmissionId( "248794017037" );
+        request.setFeedSubmissionId( "249355017039" );
 
         // Note that depending on the size of the feed sent in, and the number of errors and warnings,
         // the result can reach sizes greater than 1GB. For this reason we recommend that you _always_ 
@@ -125,6 +127,8 @@ final String accessKeyId = "0";
          request.setFeedSubmissionResultOutputStream( processingResult );
 
          invokeGetFeedSubmissionResult(service, request);
+         
+         
     }
 
 

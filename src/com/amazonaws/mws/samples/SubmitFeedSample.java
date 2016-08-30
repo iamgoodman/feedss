@@ -98,7 +98,6 @@ public class SubmitFeedSample {
          * Access Key ID and Secret Access Key ID, obtained from:
          * http://aws.amazon.com
          ***********************************************************************/
-
     	final String accessKeyId = "0";
         final String secretAccessKey = "0";
 
@@ -177,8 +176,9 @@ public class SubmitFeedSample {
         //change item price  _POST_PRODUCT_PRICING_DATA_ using xml
         //update inventory _POST_INVENTORY_AVAILABILITY_DATA_ using xml
         //Update order fulfillment tracking number _POST_ORDER_FULFILLMENT_DATA_  xml
+        //Create new Product _POST_PRODUCT_DATA_ XML
         
-        request.setFeedType("_POST_ORDER_FULFILLMENT_DATA_");
+        request.setFeedType("_POST_PRODUCT_DATA_");
 
         // MWS exclusively offers a streaming interface for uploading your
         // feeds. This is because
@@ -590,7 +590,7 @@ public class SubmitFeedSample {
 			
 			
 			
-			
+	/*		
 			//append a new message type to root 
     		org.w3c.dom.Element MessageType3 = doc.createElement("MessageType");
     		MessageType3.appendChild(doc.createTextNode("OrderFulfillment"));
@@ -684,33 +684,10 @@ public class SubmitFeedSample {
     		
     		
     		
-    		
-    		
-    		
-    	/*
-    	 
-    	  //append item to Orderfulfillment3 not really necessary 
-    		
-    		org.w3c.dom.Element Item= doc.createElement("Item");
-    		
-    		OrderFulfillment3.appendChild(Item);
-    		
-    		
-    		
-    		
-    		
-    		//append qty to item
-    		
-    		
-    		org.w3c.dom.Element Quantity = doc.createElement("Quantity");
-    		//value inside message tag
-    		Quantity.appendChild(doc.createTextNode("2"));
-    		Item.appendChild(Quantity);
-    		
     		*/
     		
     		
-    		
+
     		
     		
     		
@@ -720,9 +697,281 @@ public class SubmitFeedSample {
     		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
+			//add new product 
+    		
+    		
+			//append a new message type to root 
+    		org.w3c.dom.Element MessageType4 = doc.createElement("MessageType");
+    		MessageType4.appendChild(doc.createTextNode("Product"));
+    		rootElement.appendChild(MessageType4);
 			
+			
+		/*	//append a new element to root  //will remove all open lisiting and replaec with this one. use with caution do not use
+    		
+    		org.w3c.dom.Element PurgeAndReplace = doc.createElement("PurgeAndReplace");
+    		PurgeAndReplace.appendChild(doc.createTextNode("false"));
+    		rootElement.appendChild(PurgeAndReplace);
+    		*/
+    		
+			
+			
+    		//append another message4 to root 
+    		
+    		org.w3c.dom.Element Message4 = doc.createElement("Message");
+    		
+    		rootElement.appendChild(Message4);
+			
+			
+			
+	
+    		// append messageid4 element to message 4
+    		org.w3c.dom.Element MessageID4 = doc.createElement("MessageID");
+    		//value inside message tag
+    		MessageID4.appendChild(doc.createTextNode("1"));
+    		Message4.appendChild(MessageID4);
+    		
+    		
+    		
+    		
+    		
+			
+			//append Operationtype to message 4
+			
+			
+    		org.w3c.dom.Element OperationType = doc.createElement("OperationType");
+    		
+    		OperationType.appendChild(doc.createTextNode("Update"));
+    		
+    		Message4.appendChild(OperationType );
+			
+			
+    		
+			
+			//append amazon product to message4
+			
+			
+    		org.w3c.dom.Element Product = doc.createElement("Product");
+    		
+    		Message4.appendChild(Product);
+    		
+			
+			
+			//append SKU to Product 
+    		
+    		
+    		
+    		org.w3c.dom.Element SKU = doc.createElement("SKU");
+    		//value inside message tag
+    		SKU.appendChild(doc.createTextNode("IB-TEST"));
+    		Product.appendChild(SKU);
+    		
+			
+			//append ProductTaxCode  to Product 
+    		
+    		
+    		org.w3c.dom.Element ProductTaxCode = doc.createElement("ProductTaxCode");
+    		//value inside message tag
+    		ProductTaxCode.appendChild(doc.createTextNode("A_GEN_TAX"));
+    		Product.appendChild(ProductTaxCode);
+    		
+    		
+    		
+
+			//append LaunchDate to Product 
+    		
+    		
+    		org.w3c.dom.Element LaunchDate = doc.createElement("LaunchDate");
+    		//value inside message tag
+    		LaunchDate.appendChild(doc.createTextNode("2016-08-26T12:00:01"));
+    		Product.appendChild(LaunchDate);
+    		
+    		
+    		
+    		//append Description data to Product 
+    		
+    		
+    		org.w3c.dom.Element DescriptionData = doc.createElement("DescriptionData");
+    
+    		Product.appendChild(DescriptionData);
+    		
+    		
+    		//append title to description data
+    		
+    		org.w3c.dom.Element Title = doc.createElement("Title");
+    		//value inside message tag
+    		Title.appendChild(doc.createTextNode("Beautiful testing title"));
+    		DescriptionData.appendChild(Title);
+    		
+    		
+    		
+    		
+    		//append brand to description data
+    		
+    		
+    		org.w3c.dom.Element Brand = doc.createElement("Brand");
+    		//value inside message tag
+    		Brand.appendChild(doc.createTextNode("LarryAPS"));
+    		DescriptionData.appendChild(Brand);
+    		
+    	
+    		
+    		
+    		
+    		
+    		//append Description to des data
+    		
+    		
+    		org.w3c.dom.Element Description = doc.createElement("Description");
+    		//value inside message tag
+    		Description.appendChild(doc.createTextNode("This beautiful product is for testing purposes only, not sure where this message"
+    				+ "will go, but once being posted, the truth will reveal"
+    				+ "if you really like this beautiful product please contact corresponding seller for sample purchase"));
+    		DescriptionData.appendChild(Description);
+    		
+    		
+    		//append bullet point to des data 
+    		
+    		
+    		
+    		org.w3c.dom.Element BulletPoint = doc.createElement("BulletPoint");
+    		BulletPoint.appendChild(doc.createTextNode("100% Brand-new in sealed box,custom-designed."));
+    		DescriptionData .appendChild(BulletPoint);
+    		
+    		
+    		//append bull1 to DescriptionData
+    		
+    		
+    		org.w3c.dom.Element BulletPoint1 = doc.createElement("BulletPoint");
+    		BulletPoint1.appendChild(doc.createTextNode("Made of high quality Automotive Grade ABS."));
+    		DescriptionData .appendChild(BulletPoint1);
+    		
+    		   
+    			//append bull2 element to DescriptionData
+    		
+    		
+	    		org.w3c.dom.Element BulletPoint2 = doc.createElement("BulletPoint");
+	    		BulletPoint2.appendChild(doc.createTextNode("Extremely Popular through out the country "));
+	    		DescriptionData .appendChild(BulletPoint2);
+    		
+
+			//append bull 3 element to DescriptionData
+		
+		
+			org.w3c.dom.Element BulletPoint3 = doc.createElement("BulletPoint");
+			BulletPoint3.appendChild(doc.createTextNode("Recommanded By Many Professionals "));
+			DescriptionData .appendChild(BulletPoint3);
+    		
+			
+			
+    		//append manufacter to DescriptionData
+    		
+    		
+    		org.w3c.dom.Element Manufacturer = doc.createElement("Manufacturer");
+    		Manufacturer.appendChild(doc.createTextNode("GoodAlex"));
+    		DescriptionData .appendChild(Manufacturer);
+    		
+    		
+    		
+	//append SearchTerms to DescriptionData
+    		
+    		
+    		org.w3c.dom.Element SearchTerms = doc.createElement("SearchTerms");
+    		SearchTerms.appendChild(doc.createTextNode("Alex"));
+    		DescriptionData .appendChild(SearchTerms);
+    		
+    		
+    		
+    		
+      		
+    		//append ItemType to DescriptionData
+    	    		
+    	    		
+    	    		org.w3c.dom.Element ItemType = doc.createElement("ItemType");
+    	    		ItemType.appendChild(doc.createTextNode("flat-sheets"));
+    	    		DescriptionData .appendChild(ItemType);
+    	    		
+    		
+    	    		
+    	    		//append giftwrap  to DescriptionData
+    	    	    		
+    	    	    		
+    	    	    		org.w3c.dom.Element IsGiftWrapAvailable = doc.createElement("IsGiftWrapAvailable");
+    	    	    		IsGiftWrapAvailable.appendChild(doc.createTextNode("false"));
+    	    	    		DescriptionData .appendChild(IsGiftWrapAvailable);
+    	    	    		
+    		
+    		  //append IsGiftMessageAvailable to descrpition data 
+    	    	    		org.w3c.dom.Element IsGiftMessageAvailable = doc.createElement("IsGiftMessageAvailable");
+    	    	    		IsGiftMessageAvailable.appendChild(doc.createTextNode("false"));
+    	    	    		DescriptionData .appendChild(IsGiftMessageAvailable);
+    	    	    		
+    		
+    	    	    		
+    	    	    		
+    	    	    		
+    	    	//append product data to product 
+    	    	    		
+
+    	    	    		org.w3c.dom.Element ProductData = doc.createElement("ProductData");
+    	    	    		
+    	    	    		Product.appendChild(ProductData);
+    	    	    			
+    	    	    		
+    	   //append Home   to product data 	 
+    	    	    		
+    	    	    		
+    	    	    		org.w3c.dom.Element Home = doc.createElement("Home");
+    	    	    
+    	    	    		ProductData .appendChild(Home);	
+    	  
+    	    	    		
+    	    	    		
+    	    	    		
+    	   //append varaition data to Home
+    	    	    		
+    	    	    		org.w3c.dom.Element VariationData = doc.createElement("VariationData");
+    	    	    	
+    	    	    		Home .appendChild(VariationData);
+    	    	    			
+    	    
+    	    	    		//append varation theme to var data
+    	    	    		
+    	    	    		
+    	    	    		org.w3c.dom.Element VariationTheme = doc.createElement("VariationTheme");
+    	    	    		VariationTheme.appendChild(doc.createTextNode("Size-Color"));
+    	    	    		VariationData .appendChild(VariationTheme);
+    	   
+    	    	    		
+    	    	    		
+    	    	    		//append material to home
+    	    	    		
+
+    	    	    		org.w3c.dom.Element Material = doc.createElement("Material");
+    	    	    		Material.appendChild(doc.createTextNode("Aluminum"));
+    	    	    		Home .appendChild(Material );
+    	    	    		
+    	    	    		//append ThreadCount to Home
+    	    	    		
+    	    	    		org.w3c.dom.Element ThreadCount = doc.createElement("ThreadCount");
+    	    	    		ThreadCount.appendChild(doc.createTextNode("500"));
+    	    	    		Home .appendChild(ThreadCount );
+    	    	    		
+    	    	    		
+    	    	    		
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  		
+    	
+    	    	    		
+    	    	    		
+    	    	    		
+    	  
+    	    	    		
+    	    	    		
     		//many more descrpition data element can be appended, ended now for testing purposes, refer to mws submitfeed api
     		
+    	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    	    		
+    	    	    		
+    	    	    		
+    	    	    		
     		// write the content into xml file
     		TransformerFactory transformerFactory = TransformerFactory.newInstance();
     		Transformer transformer = transformerFactory.newTransformer();
